@@ -1,0 +1,12 @@
+Firstly, I decompiled the executable with IDA and I observer that the we are checking the input string against "bpfajgobiw", but firstly the bits of the input are interchanged like that: 
+new_input_str[0] = input_str[7]
+new_input_str[1] = input_str[8]
+new_input_str[2] = input_str[9]
+new_input_str[3] = input_str[0]
+new_input_str[4] = input_str[1]
+new_input_str[5] = input_str[2]
+new_input_str[6] = input_str[3]
+new_input_str[7] = input_str[4]
+new_input_str[8] = input_str[5]
+new_input_str[9] = input_str[6]
+So the program solution.c takes the string "bpfajgobiw" and interchanges the characters accordingly.
