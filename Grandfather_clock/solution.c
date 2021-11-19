@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char** argv) {
+	char format[19] = {0x61, 0x7F, 0x6D, 0x73, 0x71, 0x46, 0x2C, 0x31, 0x7F, 0x2C, 0x48, 0x72, 0x78, 0x6D, 0x73, 0x4A, 0x22, 0x20, 0x00};
+
+	int i;
+	for (i = 0; i < 18; ++i) {
+		format[i] = format[i] - 12;
+	}
+
+	printf("First if: %s\n", format);
+
+	char rev_verif1[29] = {']', 0x10, 0x14, 0x4C, 0x43, 0x10, 0x43, 0x4E, 0x4D, 0x14, 0x3F, 0x47, 0x4C, 0x34,
+	       	0x23, 0x26, 0x41, 0x5B, 0x28, 0x52, 0x10, 0x11, 0x3F, 0x53, 0x11, 0x4C, 0x54, 0x52, 0};
+
+	for (i = 0; i < 28; ++i) {
+		rev_verif1[i] = rev_verif1[i] + 32;
+	}
+
+	int revi = 27;
+	int cnt = -2;
+
+	i = 0;
+	char verif1[29];
+	verif1[28] = 0;
+	while (i < 28) {
+		verif1[revi] = rev_verif1[i];
+		revi += cnt;
+		if (revi == -1) {
+			revi = 0;
+			cnt = -cnt;	
+		}
+		i = i + 1;
+	}
+
+	printf("Second if verif: %s\n", verif1);
+
+	char format2[] = {0xA8, 0xD0, 0xC2, 0xE8, 'N', 0xE6, '@', 0xDC, 0xDE, 0xE8, '@', 0xE8, 0xD0, 0xCA, '@',
+			  0xCC, 0xD8, 0xC2, 0xCE, 'B', 0xC, 0};
+
+	int len2 = strlen(format2);
+
+	for (i = 0; i < len2 - 1; ++i) {
+		format2[i] = (format2[i] >> 1) & 0x7F;
+	}
+
+	printf("Format2: %s\n", format2);
+
+	printf("Solution: %s\n", verif1);
+}
